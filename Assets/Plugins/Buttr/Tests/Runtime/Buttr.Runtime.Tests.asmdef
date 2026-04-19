@@ -4,8 +4,6 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Buttr.Core",
-        "Buttr.Injection",
         "Buttr.Unity"
     ],
     "includePlatforms": [],
@@ -13,7 +11,9 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "nunit.framework.dll"
+        "nunit.framework.dll",
+        "Buttr.Core.dll",
+        "Buttr.Injection.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [

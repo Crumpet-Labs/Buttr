@@ -4,6 +4,42 @@ All notable changes to Buttr will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-04-19
+
+### Package split
+
+The engine-agnostic core has been extracted into a separate .NET library at
+[Crumpet-Labs/Buttr.Core](https://github.com/Crumpet-Labs/Buttr.Core) (v1.0.0).
+This Unity package now vendors `Buttr.Core.dll` and `Buttr.Injection.dll` from
+that repository under `Runtime/Lib/` and adds the Unity-specific bridge on top.
+
+### Changed
+
+- **Package name**: `com.crumpetlabs.buttr` → `com.crumpetlabs.buttr.unity`. Existing users must update their `manifest.json` entry — the git URL stays the same.
+- **Display name**: "Buttr" → "Buttr for Unity".
+- **No more `Runtime/Core/` or `Runtime/Injection/` source folders.** Their assemblies (`Buttr.Core` and `Buttr.Injection`) now ship as precompiled DLLs in `Runtime/Lib/`. Public API surface is unchanged: `ApplicationBuilder`, `Application<T>`, `DIBuilder`, `ScopeBuilder`, `[Inject]`, `IInjectable`, `InjectionProcessor.Register`/`Inject` all behave as before.
+- **Source generator**: renamed from `SourceGeneration.dll` to `Buttr.Unity.SourceGeneration.dll` (same asset GUID, same labels, same generated output).
+- **CMDArgs**: no longer auto-initialises via `[RuntimeInitializeOnLoadMethod]`. The Unity package now registers a bootstrap (`Buttr.Unity.CMDArgsBootstrap`) that calls `CMDArgs.Initialize(Environment.GetCommandLineArgs())` at `SubsystemRegistration`. End users see no behavioural change.
+- **Internal logging**: now routed through a new `Buttr.Core.ButtrLog` facade. The Unity package registers `Buttr.Unity.UnityButtrLogger` at `SubsystemRegistration` to route into `UnityEngine.Debug.Log*`.
+- **`InjectionProcessor` split**: scene-walking helpers (`InjectScene`, `InjectActiveScene`, `InjectAllLoadedScenes`, `InjectGameObject`, `InjectSelfAndChildren`) have moved to a new static class `Buttr.Unity.Injection.InjectionProcessorUnityExtensions`. The pure `Buttr.Injection.InjectionProcessor` now only exposes `Register<T>`, `Inject(object)`, and `Clear()`.
+- **Unity-specific injection types moved**: `MonoInjector`, `SceneInjector`, `MonoInjectStrategy`, and `BehaviourInjectorTooltips` now live under `Runtime/Unity/Injection/` with namespace `Buttr.Unity.Injection` (previously `Buttr.Injection`). Prefab references are preserved via their existing script GUIDs.
+- **`AwaitableUtility`**: moved from `Runtime/Core/Utility/` to `Runtime/Unity/Utility/`. Namespace remains `Buttr.Core` for source compatibility — existing code using `using Buttr.Core; AwaitableUtility.CompletedTask;` continues to compile without changes.
+
+### Removed
+
+- Dead interface `Buttr.Core.IApplicationRunner` — internal, zero references across the codebase.
+- `Assets/Plugins/Buttr/Runtime/Core/Buttr.Core.asmdef` and `Assets/Plugins/Buttr/Runtime/Injection/Buttr.Injection.asmdef` — assemblies now ship as precompiled DLLs.
+
+### Migration
+
+If you only use `[Inject]`, `IInjectable`, `ApplicationBuilder`, `Application<T>`, `ScopeBuilder`, `DIBuilder`, or the `SceneInjector` / `MonoInjector` MonoBehaviours, no code changes are required.
+
+If your own asmdef file referenced `Buttr.Core` or `Buttr.Injection` by name or GUID, change it to reference `Buttr.Unity` (which transitively exposes both). If you need direct API access without going through `Buttr.Unity`, add `"Buttr.Core.dll"` and `"Buttr.Injection.dll"` to its `precompiledReferences` (with `"overrideReferences": true`).
+
+If you called any of the Unity-only `InjectionProcessor` scene helpers (`InjectScene`, `InjectActiveScene`, `InjectAllLoadedScenes`, `InjectGameObject`, `InjectSelfAndChildren`) directly, change the class name to `InjectionProcessorUnityExtensions` (in namespace `Buttr.Unity.Injection`). Method signatures are unchanged.
+
+In your project's `Packages/manifest.json`, update the package name from `com.crumpetlabs.buttr` to `com.crumpetlabs.buttr.unity`. The git URL is unchanged.
+
 ## [2.1.1] - 2026-03-14
 
 ### Fixed

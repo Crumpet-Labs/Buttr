@@ -1,1 +1,17 @@
-{"name":"Buttr.Unity","rootNamespace":"Buttr.Unity","references":["GUID:1bbd835378fe6f745a8b5f4ef2c37033","GUID:e1466c3dde8d4dc6b4742084b0cd21bf"],"includePlatforms":[],"excludePlatforms":[],"allowUnsafeCode":false,"overrideReferences":false,"precompiledReferences":[],"autoReferenced":true,"defineConstraints":[],"versionDefines":[],"noEngineReferences":false}
+{
+    "name": "Buttr.Unity",
+    "rootNamespace": "Buttr.Unity",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Buttr.Core.dll",
+        "Buttr.Injection.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

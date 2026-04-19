@@ -1,8 +1,8 @@
 {
-  "name": "com.crumpetlabs.buttr",
-  "version": "2.1.1",
-  "displayName": "Buttr",
-  "description": "A lightweight DI framework, built for Unity",
+  "name": "com.crumpetlabs.buttr.unity",
+  "version": "2.2.0",
+  "displayName": "Buttr for Unity",
+  "description": "Unity bridge for Buttr — a lightweight dependency-injection container. Vendors the engine-agnostic Buttr.Core and Buttr.Injection assemblies and adds MonoBehaviour, ScriptableObject, and scene-walking integration.",
   "unity": "6000.0",
   "unityRelease": "0b1",
   "documentationUrl": "https://github.com/Crumpet-Labs/Buttr/blob/main/Assets/Plugins/Buttr/README.md",
@@ -18,7 +18,7 @@
     "Roslyn",
     "IoC",
     "Scaffolding"
-  ], 
+  ],
   "author": {
     "name": "Crumpet Labs",
     "url": "https://www.crumpetlabs.co.uk"
