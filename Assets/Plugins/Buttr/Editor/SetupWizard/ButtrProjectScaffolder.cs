@@ -40,6 +40,16 @@ namespace Buttr.Editor.SetupWizard {
         internal static bool HasBeenSetUp => EditorPrefs.HasKey(SetupVersionKey);
         internal static string SetupVersion => EditorPrefs.GetString(SetupVersionKey, string.Empty);
 
+        // ── Menu entry ───────────────────────────────────────────────
+
+        [MenuItem("Tools/Buttr/Setup Project")]
+        private static void SetupProjectMenuItem() {
+            // Idempotent — each step checks for existing output and skips.
+            // Running again after install re-asserts the convention folders / scripts / scene.
+            const string buttrVersion = "2.2.0"; // TODO: read from package.json at runtime
+            new ButtrProjectScaffolder(Application.productName, buttrVersion).ExecuteQuickSetup();
+        }
+
         // ── Quick Setup ──────────────────────────────────────────────
 
         /// <summary>
@@ -72,16 +82,6 @@ namespace Buttr.Editor.SetupWizard {
                 Debug.LogError($"[Buttr] Setup failed: {ex.Message}");
                 Debug.LogException(ex);
             }
-        }
-
-        // ── Skip Conventions ─────────────────────────────────────────
-
-        /// <summary>
-        /// Sets the EditorPref and nothing else. Buttr is installed as a standalone DI framework.
-        /// </summary>
-        internal void ExecuteSkipConventions() {
-            SetEditorPref();
-            Debug.Log("[Buttr] Installed as standalone DI framework — no conventions applied.");
         }
 
         // ── Phase 1 Steps ────────────────────────────────────────────

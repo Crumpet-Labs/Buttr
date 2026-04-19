@@ -24,11 +24,14 @@ that repository under `Runtime/Lib/` and adds the Unity-specific bridge on top.
 - **`InjectionProcessor` split**: scene-walking helpers (`InjectScene`, `InjectActiveScene`, `InjectAllLoadedScenes`, `InjectGameObject`, `InjectSelfAndChildren`) have moved to a new static class `Buttr.Unity.Injection.InjectionProcessorUnityExtensions`. The pure `Buttr.Injection.InjectionProcessor` now only exposes `Register<T>`, `Inject(object)`, and `Clear()`.
 - **Unity-specific injection types moved**: `MonoInjector`, `SceneInjector`, `MonoInjectStrategy`, and `BehaviourInjectorTooltips` now live under `Runtime/Unity/Injection/` with namespace `Buttr.Unity.Injection` (previously `Buttr.Injection`). Prefab references are preserved via their existing script GUIDs.
 - **`AwaitableUtility`**: moved from `Runtime/Core/Utility/` to `Runtime/Unity/Utility/`. Namespace remains `Buttr.Core` for source compatibility — existing code using `using Buttr.Core; AwaitableUtility.CompletedTask;` continues to compile without changes.
+- **Setup Wizard replaced by a menu item**: the `EditorWindow`-based setup wizard has been retired. Quick Setup now runs via `Tools > Buttr > Setup Project` — one click, same scaffolding behaviour (convention folders, `Program.cs`, `ProgramLoader.cs`, boot scene, build settings, `ProgramLoader` asset wiring). The wizard no longer auto-opens on first project load; existing `EditorPrefs` setup-state keys are unchanged.
 
 ### Removed
 
 - Dead interface `Buttr.Core.IApplicationRunner` — internal, zero references across the codebase.
 - `Assets/Plugins/Buttr/Runtime/Core/Buttr.Core.asmdef` and `Assets/Plugins/Buttr/Runtime/Injection/Buttr.Injection.asmdef` — assemblies now ship as precompiled DLLs.
+- `Editor/SetupWizard/`: wizard UI, UXML, USS, images, models, views, mediators, presenter, enums, and wizard-only utility helpers. Only `ButtrProjectScaffolder` (and `ButtrPostCompileHook`) remain — they run the same setup work triggered now by the menu item.
+- The "Skip Conventions" setup mode — it existed only as a wizard option and performed no scaffolding. Users who want Buttr without conventions simply don't run the menu item.
 
 ### Migration
 
