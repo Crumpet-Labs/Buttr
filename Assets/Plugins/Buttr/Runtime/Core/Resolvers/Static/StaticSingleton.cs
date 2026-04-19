@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace Buttr.Core {
     internal sealed class StaticSingleton<TConcrete> : ObjectResolverBase<TConcrete>, IDisposable{
@@ -36,7 +35,7 @@ namespace Buttr.Core {
                         array[i] = requirement.FullName;
                     }
                     
-                    throw new ObjectResolverException($"Potential cyclic dependency located in {typeof(TConcrete)}: See dependencies: {JsonUtility.ToJson(array)}");
+                    throw new ObjectResolverException($"Potential cyclic dependency located in {typeof(TConcrete)}: See dependencies: [{string.Join(", ", array)}]");
                 }
                 
                 if (dependencies.TryValidate(requirements) == false) {

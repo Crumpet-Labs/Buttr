@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Buttr.Core {
     internal static class ServiceResolverUtilities {
@@ -65,9 +64,7 @@ namespace Buttr.Core {
                 var requiredType = requirements[i];
 
                 if (requiredType.IsAssignableFrom(instanceType) == false) {
-#if UNITY_EDITOR
-                    Debug.LogWarning($"Dependency of type {instanceType} does not satisfy required type {requiredType}.");
-#endif
+                    ButtrLog.LogWarning($"Dependency of type {instanceType} does not satisfy required type {requiredType}.");
                     return false;
                 }
             }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine.Pool;
 
 namespace Buttr.Core {
     internal static class ApplicationRegistry {

@@ -1,12 +1,13 @@
 using System;
+using Buttr.Injection;
 using UnityEngine;
 
-namespace Buttr.Injection {
-    [ DefaultExecutionOrder(-9000) ]
+namespace Buttr.Unity.Injection {
+    [DefaultExecutionOrder(-9000)]
     internal sealed class MonoInjector : MonoBehaviour {
         [SerializeField] private MonoInjectStrategy m_InjectStrategy = MonoInjectStrategy.GameObjectAndChildren;
         [SerializeField, Tooltip(BehaviourInjectorTooltips.BEHAVIOUR_TOOLTIP)] private MonoBehaviour m_Behaviour;
-        
+
         private void Awake() {
             if (m_Behaviour == null) {
                 m_Behaviour = gameObject.GetComponent<MonoBehaviour>();
@@ -17,15 +18,15 @@ namespace Buttr.Injection {
                     InjectionProcessor.Inject(m_Behaviour);
                     break;
                 case MonoInjectStrategy.GameObject:
-                    InjectionProcessor.InjectGameObject(m_Behaviour);
+                    InjectionProcessorUnityExtensions.InjectGameObject(m_Behaviour);
                     break;
                 case MonoInjectStrategy.GameObjectAndChildren:
-                    InjectionProcessor.InjectSelfAndChildren(m_Behaviour);
+                    InjectionProcessorUnityExtensions.InjectSelfAndChildren(m_Behaviour);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Somehow... Incredibly... you managed to trigger this... 👍");
             }
-            
+
             Destroy(this);
         }
     }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Buttr.Core {
     internal static class DIBuilderUtility {
@@ -13,7 +12,7 @@ namespace Buttr.Core {
                     output[count++] = resolver.Resolve();
                 }
                 else {
-                    Debug.Log($"Unable to locate Dependency in Container {requirements[i].FullName} ");
+                    ButtrLog.Log($"Unable to locate Dependency in Container {requirements[i].FullName} ");
                 }
             }
             return count;
