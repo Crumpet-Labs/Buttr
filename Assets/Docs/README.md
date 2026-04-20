@@ -1,6 +1,6 @@
 # Buttr
 
-A dependency injection and architecture framework for Unity 6+. This README covers how to use Buttr within your project. For installation and contributing, see the [GitHub repository](https://github.com/FriedCrumpets/Buttr).
+A dependency injection and architecture framework for Unity 6+. This README covers how to use Buttr within your project. For installation and contributing, see the [GitHub repository](https://github.com/Crumpet-Labs/Buttr.Unity).
 
 Buttr works as a standalone DI framework — the design philosophy below is recommended for project cohesiveness but is not required. You can adopt the conventions gradually or use the container on its own.
 

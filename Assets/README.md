@@ -8,8 +8,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Crumpet-Labs/Buttr/releases"><img src="https://img.shields.io/github/v/release/Crumpet-Labs/Buttr?style=flat-square" alt="Release"></a>
-  <a href="https://github.com/Crumpet-Labs/Buttr/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Crumpet-Labs/Buttr?style=flat-square" alt="License"></a>
+  <a href="https://github.com/Crumpet-Labs/Buttr.Unity/releases"><img src="https://img.shields.io/github/v/release/Crumpet-Labs/Buttr.Unity?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Crumpet-Labs/Buttr.Unity?style=flat-square" alt="License"></a>
   <a href="https://unity.com"><img src="https://img.shields.io/badge/Unity-6+-black?style=flat-square&logo=unity" alt="Unity 6+"></a>
   <a href="https://learn.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/C%23-9-blue?style=flat-square&logo=csharp" alt="C#"></a>
 </p>
@@ -53,12 +53,12 @@ It's small by design, built to fit into existing `MonoSingleton` architectures w
 5. Paste the following URL:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.git?path=Assets/Plugins/Buttr
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr
 ```
 
 ### Releases
 
-Download the latest `.unitypackage` from the [Releases](https://github.com/Crumpet-Labs/Buttr/releases) page.
+Download the latest `.unitypackage` from the [Releases](https://github.com/Crumpet-Labs/Buttr.Unity/releases) page.
 
 ## Getting Started
 

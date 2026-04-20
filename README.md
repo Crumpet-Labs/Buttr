@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Crumpet-Labs/Buttr/releases"><img src="https://img.shields.io/github/v/release/Crumpet-Labs/Buttr?style=flat-square" alt="Release"></a>
-  <a href="https://github.com/Crumpet-Labs/Buttr/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Crumpet-Labs/Buttr?style=flat-square" alt="License"></a>
+  <a href="https://github.com/Crumpet-Labs/Buttr.Unity/releases"><img src="https://img.shields.io/github/v/release/Crumpet-Labs/Buttr.Unity?style=flat-square" alt="Release"></a>
+  <a href="https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Crumpet-Labs/Buttr.Unity?style=flat-square" alt="License"></a>
   <a href="https://unity.com"><img src="https://img.shields.io/badge/Unity-6+-black?style=flat-square&logo=unity" alt="Unity 6+"></a>
 </p>
 
@@ -19,7 +19,7 @@ Buttr vendors the engine-agnostic [Buttr.Core](https://github.com/Crumpet-Labs/B
 `Window > Package Manager` → `+` → **Install package from git URL**:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.git?path=Assets/Plugins/Buttr
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr
 ```
 
 Pin a version by appending `#v2.3.0`. Requires Unity 6.0+.

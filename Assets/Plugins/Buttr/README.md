@@ -12,7 +12,7 @@ A lightweight dependency-injection container with an opinionated architecture fo
 `Window > Package Manager` → `+` → **Install package from git URL**:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.git?path=Assets/Plugins/Buttr
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr
 ```
 
 Pin a version by appending `#v2.3.0`. Requires Unity 6.0+.
@@ -46,21 +46,21 @@ Pin a version by appending `#v2.3.0`. Requires Unity 6.0+.
 
 4. Add a `SceneInjector` to your scene, press Play.
 
-Full walkthrough: [Docs/Guides/GettingStarted.md](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/GettingStarted.md).
+Full walkthrough: [Docs/Guides/GettingStarted.md](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/GettingStarted.md).
 
 ## Documentation
 
-Unity-specific guides live in [Docs/Guides/](https://github.com/Crumpet-Labs/Buttr/tree/main/Docs/Guides):
+Unity-specific guides live in [Docs/Guides/](https://github.com/Crumpet-Labs/Buttr.Unity/tree/main/Docs/Guides):
 
 | Guide | What it covers |
 |---|---|
-| [Installation](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/Installation.md) | UPM install, updating, version pinning |
-| [Getting Started](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/GettingStarted.md) | First project — `Program.cs`, `ProgramLoader`, boot scene |
-| [Conventions](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/Conventions.md) | Suffix-driven architecture |
-| [MonoBehaviour Injection](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/MonoBehaviourInjection.md) | `[Inject]`, `partial`, `SceneInjector`, `MonoInjector` |
-| [ScriptableObjects](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/ScriptableObjects.md) | `ScriptableInjector`, Configurations, Definitions, Handlers |
-| [Editor Tooling](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/EditorTooling.md) | Setup project, right-click scaffolding |
-| [Loaders](https://github.com/Crumpet-Labs/Buttr/blob/main/Docs/Guides/Loaders.md) | `UnityApplicationBoot`, boot pipeline |
+| [Installation](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/Installation.md) | UPM install, updating, version pinning |
+| [Getting Started](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/GettingStarted.md) | First project — `Program.cs`, `ProgramLoader`, boot scene |
+| [Conventions](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/Conventions.md) | Suffix-driven architecture |
+| [MonoBehaviour Injection](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/MonoBehaviourInjection.md) | `[Inject]`, `partial`, `SceneInjector`, `MonoInjector` |
+| [ScriptableObjects](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/ScriptableObjects.md) | `ScriptableInjector`, Configurations, Definitions, Handlers |
+| [Editor Tooling](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/EditorTooling.md) | Setup project, right-click scaffolding |
+| [Loaders](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Docs/Guides/Loaders.md) | `UnityApplicationBoot`, boot pipeline |
 
 Engine-agnostic core (aliasing, `All<T>()`, `DIBuilder`, `Hidden`, analyzer catalogue): [Buttr.Core docs](https://github.com/Crumpet-Labs/Buttr.Core/tree/main/Docs).
 

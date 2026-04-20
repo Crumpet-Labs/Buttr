@@ -9,7 +9,7 @@ Buttr for Unity ships as a UPM package. Requires Unity 6.0 or later.
 3. Paste:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.git?path=Assets/Plugins/Buttr
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr
 ```
 
 Unity resolves the package, imports the vendored `Buttr.Core.dll`, `Buttr.Injection.dll`, and the analyzer DLLs, and you're ready to go.
@@ -19,7 +19,7 @@ Unity resolves the package, imports the vendored `Buttr.Core.dll`, `Buttr.Inject
 Append `#v2.3.0` (or any tag) to pin to a release:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.git?path=Assets/Plugins/Buttr#v2.3.0
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr#v2.3.0
 ```
 
 Tags follow [Semantic Versioning](https://semver.org/) and track the matching Buttr.Core release (Unity 2.3.0 ships Buttr.Core 1.3.0).
