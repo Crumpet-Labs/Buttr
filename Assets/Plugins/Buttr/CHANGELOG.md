@@ -23,7 +23,7 @@ Tracks [Buttr.Core 1.3.0](https://github.com/Crumpet-Labs/Buttr.Core/releases/ta
 
 ### Migration
 
-No code changes required. `.As<>()` and `All<T>()` are additive. If you suppressed `BUTTR004`/`006`/`012` by analyzer-assembly name (uncommon), update the suppression to reference `Buttr.Core.Analyzers` — suppressing by rule ID (the normal path) keeps working.
+No code changes required for consumers. `.As<>()` and `All<T>()` are additive on the surface you call. If you _implement_ `IConfigurable<TConcrete>` or `IConfigurableCollection` directly (rare — these interfaces were designed for consuming, not implementing), add the new members: `IConfigurable<TConcrete> As<TAlias>()` and `IConfigurableCollection As<TConcrete, TAlias>()` respectively. If you suppressed `BUTTR004`/`006`/`012` by analyzer-assembly name (uncommon), update the suppression to reference `Buttr.Core.Analyzers` — suppressing by rule ID (the normal path) keeps working.
 
 ### Verification
 

@@ -26,6 +26,8 @@ namespace Buttr.Tests.Editor.Configurable {
                 LastFactory = factory;
                 return this;
             }
+
+            public IConfigurable<T> As<TAlias>() => this;
         }
 
         private ConfigurableCollection m_Collection;
