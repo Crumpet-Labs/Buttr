@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Docs/Images/buttr-wordmark.svg" alt="Buttr" width="400"/>
+  <img src="Assets/Docs/Images/buttr-wordmark.svg" alt="Buttr" width="400"/>
 </p>
 
 <p align="center">
