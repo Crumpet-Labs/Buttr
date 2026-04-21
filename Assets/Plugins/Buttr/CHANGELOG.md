@@ -4,6 +4,21 @@ All notable changes to Buttr will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0] - 2026-04-21
+
+Switches from vendoring the Buttr.Core DLLs to depending on the new `com.crumpetlabs.buttr` UPM package. No runtime or API changes.
+
+### Changed
+
+- **Buttr.Core and Buttr.Injection are no longer vendored inside `Runtime/Lib/`.** They now arrive via a standard UPM dependency on `com.crumpetlabs.buttr` (1.3.3), supplied by [Buttr.Core](https://github.com/Crumpet-Labs/Buttr.Core). Consumers will see the Core DLLs land under `Packages/com.crumpetlabs.buttr/Runtime/Lib/` instead of inside this package. Asmdef references (`Buttr.Core`, `Buttr.Injection`) resolve identically because assembly names are unchanged.
+- **`Buttr.Core.Analyzers.dll` stays vendored** in `Analyser/` alongside the Unity source generator. Roslyn analyzer packaging is Unity-specific and doesn't ship in the Core UPM package.
+
+### Migration
+
+Automatic for Unity projects that use a manifest pointing at `com.crumpetlabs.buttr.unity` via git URL — UPM resolves the new `com.crumpetlabs.buttr` dep transitively. Projects that had both Buttr.Core DLLs AND another package vendoring the same DLLs (duplicate-assembly error) will now resolve cleanly because only one package ships them.
+
+If you were referencing the vendored DLL paths directly (e.g. in a custom csproj), update to `Packages/com.crumpetlabs.buttr/Runtime/Lib/Buttr.Core.dll`.
+
 ## [2.3.1] - 2026-04-20
 
 Tracks [Buttr.Core 1.3.2](https://github.com/Crumpet-Labs/Buttr.Core/releases/tag/v1.3.2). Renames the bulk-resolution surface on the global `Application` container.

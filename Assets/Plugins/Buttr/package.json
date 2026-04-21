@@ -1,15 +1,17 @@
 {
   "name": "com.crumpetlabs.buttr.unity",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "displayName": "Buttr for Unity",
-  "description": "Unity bridge for Buttr — a lightweight dependency-injection container. Vendors the engine-agnostic Buttr.Core and Buttr.Injection assemblies and adds MonoBehaviour, ScriptableObject, and scene-walking integration.",
+  "description": "Unity bridge for Buttr — a lightweight dependency-injection container. Adds MonoBehaviour, ScriptableObject, and scene-walking integration on top of the engine-agnostic Buttr.Core assemblies. The Core DLLs are supplied by the com.crumpetlabs.buttr dependency rather than vendored inline.",
   "unity": "6000.0",
   "unityRelease": "0b1",
   "documentationUrl": "https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Assets/Plugins/Buttr/README.md",
   "changelogUrl": "https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Assets/Plugins/Buttr/CHANGELOG.md",
   "license": "MIT",
   "category": "Dependency Injection",
-  "dependencies": { },
+  "dependencies": {
+    "com.crumpetlabs.buttr": "1.3.3"
+  },
   "keywords": [
     "DI",
     "Dependency Injection",
