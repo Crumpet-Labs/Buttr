@@ -28,7 +28,6 @@ namespace Buttr.Editor.Scaffolding {
 
             Directory.CreateDirectory(root);
 
-            // ── Package root files (no command equivalent) ───────────
             root.WriteFile($"{packageName}Package.cs",
                 new ButtrPackageExtensionTemplate(ns, projectName, type).Generate());
 
@@ -38,7 +37,6 @@ namespace Buttr.Editor.Scaffolding {
             root.WriteFile("README.md",
                 new ButtrREADMETemplate(packageName, type).Generate());
 
-            // ── Core scaffold via commands ───────────────────────────
             new AddModelCommand(root, false).Execute();
             new AddPresenterCommand(root, false).Execute();
             new AddMediatorCommand(root, false).Execute();
@@ -57,7 +55,6 @@ namespace Buttr.Editor.Scaffolding {
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
 
-            // ── Optional additions via commands ──────────────────────
             if(options.HasFlag(PackageOptions.Definitions))
                 new AddDefinitionCommand(root, false).Execute();
             

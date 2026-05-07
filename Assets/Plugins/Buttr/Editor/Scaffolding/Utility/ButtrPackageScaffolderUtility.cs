@@ -178,18 +178,12 @@ namespace Buttr.Editor.Scaffolding {
         internal static string SanitiseTypeName(string raw) {
             if (string.IsNullOrWhiteSpace(raw)) return "Default";
 
-            // PascalCase on word boundaries (hyphens, underscores, spaces, dots)
             var pascalCased = WordBoundary.Replace(raw, m => m.Groups[1].Value.ToUpper());
-
-            // Stripping anything that isn't a letter, digit, or underscore
             var stripped = InvalidIdentifierChars.Replace(pascalCased, string.Empty);
-
-            // Ensuring it starts with a letter or underscore
             stripped = LeadingInvalid.Replace(stripped, string.Empty);
 
             if (stripped.Length == 0) return "Default";
 
-            // Ensuring first character is uppercase
             return char.ToUpper(stripped[0]) + stripped[1..];
         }
 

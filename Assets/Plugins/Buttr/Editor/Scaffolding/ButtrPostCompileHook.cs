@@ -39,7 +39,6 @@ namespace Buttr.Editor.Scaffolding {
         }
 
         private static void CreatePendingAsset(string typeName, string assetPath) {
-            // Normalising to Assets-relative path immediately
             assetPath = assetPath.Replace('\\', '/');
     
             if (assetPath.Contains(Application.dataPath.Replace('\\', '/'))) {

@@ -35,22 +35,14 @@ namespace Buttr.Editor.SetupWizard {
             m_ButtrVersion = buttrVersion;
         }
 
-        // ── Static Queries ───────────────────────────────────────────
-
         internal static bool HasBeenSetUp => EditorPrefs.HasKey(SetupVersionKey);
         internal static string SetupVersion => EditorPrefs.GetString(SetupVersionKey, string.Empty);
 
-        // ── Menu entry ───────────────────────────────────────────────
-
         [MenuItem("Tools/Buttr/Setup Project")]
         private static void SetupProjectMenuItem() {
-            // Idempotent — each step checks for existing output and skips.
-            // Running again after install re-asserts the convention folders / scripts / scene.
             const string buttrVersion = "2.2.0"; // TODO: read from package.json at runtime
             new ButtrProjectScaffolder(Application.productName, buttrVersion).ExecuteQuickSetup();
         }
-
-        // ── Quick Setup ──────────────────────────────────────────────
 
         /// <summary>
         /// Runs Phase 1 of the Quick Setup scaffolding sequence.
@@ -71,7 +63,6 @@ namespace Buttr.Editor.SetupWizard {
                 ConfigureBuildSettings();
                 SetEditorPref();
 
-                // Flag for post-compilation hook to create the asset and wire it
                 EditorPrefs.SetInt(PendingAssetCreationKey, 1);
 
                 Debug.Log("[Buttr] Phase 1 complete — folders, scripts, boot scene, and build settings configured.");
@@ -83,8 +74,6 @@ namespace Buttr.Editor.SetupWizard {
                 Debug.LogException(ex);
             }
         }
-
-        // ── Phase 1 Steps ────────────────────────────────────────────
 
         private void CreateRootFolder() {
             var path = RootPath();
@@ -253,8 +242,6 @@ namespace {sanitisedName} {{
             Debug.Log("[Buttr] Main.unity added to build settings at index 0");
         }
 
-        // ── Phase 2: Post-Compilation (called by ButtrPostCompileHook) ──
-
         /// <summary>
         /// Creates the ProgramLoader ScriptableObject asset and wires it into the boot scene.
         /// Called by <see cref="ButtrPostCompileHook"/> after Unity has compiled the generated scripts.
@@ -284,7 +271,6 @@ namespace {sanitisedName} {{
                 return null;
             }
 
-            // Find the compiled ProgramLoader type
             Type programLoaderType = null;
 
             foreach (var type in TypeCache.GetTypesDerivedFrom<UnityApplicationLoaderBase>()) {
@@ -307,14 +293,10 @@ namespace {sanitisedName} {{
             return instance as UnityApplicationLoaderBase;
         }
 
-        // ── EditorPref ───────────────────────────────────────────────
-
         private void SetEditorPref() {
             var version = string.IsNullOrEmpty(m_ButtrVersion) ? "unknown" : m_ButtrVersion;
             EditorPrefs.SetString(SetupVersionKey, version);
         }
-
-        // ── Utilities ────────────────────────────────────────────────
 
         private static string RootPath() => Path.Combine(Application.dataPath, RootFolder);
 

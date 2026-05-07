@@ -107,3 +107,6 @@ InitTestScene*.unity*
 
 # Working drafts / internal design documents — kept local, not published
 /Docs/Drafts/
+
+# AI tooling local config — never commit
+.claude/

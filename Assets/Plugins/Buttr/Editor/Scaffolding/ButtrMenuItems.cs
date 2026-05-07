@@ -57,8 +57,6 @@ namespace Buttr.Editor.Scaffolding {
             return ButtrMenuItemsUtility.HasConventionStructure();
         }
 
-        // ── Add to Package: Unity ────────────────────────────────────
-
         [MenuItem("Assets/Buttr/Packages/Add to Package/Unity/Controller", false, BasePriority)]
         private static void AddController() {
             new AddControllerCommand(ButtrMenuItemsUtility.FindPackageRoot(), true).Execute();
@@ -78,8 +76,6 @@ namespace Buttr.Editor.Scaffolding {
         private static bool AddViewValidation() {
             return ButtrMenuItemsUtility.HasConventionStructure() && ButtrMenuItemsUtility.IsInsidePackage();
         }
-
-        // ── Add to Package: Data ─────────────────────────────────────
 
         [MenuItem("Assets/Buttr/Packages/Add to Package/Data/Model", false, BasePriority)]
         private static void AddModel() {
@@ -120,8 +116,6 @@ namespace Buttr.Editor.Scaffolding {
         private static bool AddConfigurationValidation() {
             return ButtrMenuItemsUtility.HasConventionStructure() && ButtrMenuItemsUtility.IsInsidePackage();
         }
-
-        // ── Add to Package: Logic ────────────────────────────────────
 
         [MenuItem("Assets/Buttr/Packages/Add to Package/Logic/Presenter", false, BasePriority)]
         private static void AddPresenter() {
@@ -173,8 +167,6 @@ namespace Buttr.Editor.Scaffolding {
             return ButtrMenuItemsUtility.HasConventionStructure() && ButtrMenuItemsUtility.IsInsidePackage();
         }
 
-        // ── Add to Package: Infrastructure ───────────────────────────
-
         [MenuItem("Assets/Buttr/Packages/Add to Package/Infrastructure/Service + Contract", false, BasePriority)]
         private static void AddServiceAndContract() {
             new AddServiceAndContractCommand(ButtrMenuItemsUtility.FindPackageRoot(), true).Execute();
@@ -214,8 +206,6 @@ namespace Buttr.Editor.Scaffolding {
         private static bool AddLoaderValidation() {
             return ButtrMenuItemsUtility.HasConventionStructure() && ButtrMenuItemsUtility.IsInsidePackage();
         }
-
-        // ── Add to Package: Structure ────────────────────────────────
 
         [MenuItem("Assets/Buttr/Packages/Add to Package/Structure/Extensions", false, BasePriority)]
         private static void AddExtensions() {
