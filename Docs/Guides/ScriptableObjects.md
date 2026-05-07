@@ -16,24 +16,21 @@ All three are **stateless** — they describe, not execute. Stateful strategy be
 
 ## ScriptableInjector
 
-`ScriptableInjector` is the bridge that registers ScriptableObject assets into a container. Add a `ScriptableInjector` component to a GameObject (commonly the Boot GameObject or a feature Instance), drag `.asset` references into its list, and it calls `builder.Resolvers.AddSingleton<T>(instance)` for each at build time.
+`ScriptableInjector` is a `[Serializable]` helper class (not a MonoBehaviour) that bulk-registers ScriptableObject assets into a Buttr container. Expose it on a Loader as a `[SerializeField]`, drag your `.asset` references into its list in the Inspector, and call `Inject(builder)` from `LoadAsync`. Internally it builds an Expression-tree-compiled `AddSingleton<TConcrete>().WithFactory(() => instance)` registration for each entry, keyed by each asset's concrete type.
 
 Typical flow inside a Loader:
 
 ```csharp
 public sealed class CombatLoader : UnityApplicationLoaderBase {
-    [SerializeField] private CombatConfiguration m_Config;
-    [SerializeField] private MeleeAttackHandler m_MeleeHandler;
-    [SerializeField] private RangedAttackHandler m_RangedHandler;
+    [SerializeField] private ScriptableInjector m_Injector;
 
     private ApplicationContainer m_Container;
 
     public override Awaitable LoadAsync(CancellationToken ct) {
         var builder = new ApplicationBuilder();
 
-        builder.Resolvers.AddSingleton(m_Config);          // CombatConfiguration
-        builder.Resolvers.AddSingleton(m_MeleeHandler);     // MeleeAttackHandler
-        builder.Resolvers.AddSingleton(m_RangedHandler);    // RangedAttackHandler
+        m_Injector.Inject(builder);   // Registers each ScriptableObject under its concrete type
+        builder.Resolvers.AddSingleton<ICombatService, CombatService>();
 
         m_Container = builder.Build();
         return AwaitableUtility.CompletedTask;
@@ -46,7 +43,26 @@ public sealed class CombatLoader : UnityApplicationLoaderBase {
 }
 ```
 
-`[SerializeField]` on the Loader exposes slots in the Inspector to drag your `.asset` files into. Those assets live in `Catalog/` (see [Conventions](Conventions.md)).
+`ScriptableInjector` overloads `Inject(ApplicationBuilder)` and `Inject(IDIBuilder)` — same pattern works inside a `ScopeBuilder` or `DIBuilder` Loader too.
+
+If you need fine-grained control — registering individual assets, applying configuration, or providing a different concrete type — skip `ScriptableInjector` and use `WithFactory` directly:
+
+```csharp
+[SerializeField] private CombatConfiguration m_Config;
+
+public override Awaitable LoadAsync(CancellationToken ct) {
+    var builder = new ApplicationBuilder();
+
+    builder.Resolvers.AddSingleton<CombatConfiguration>().WithFactory(() => m_Config);
+
+    m_Container = builder.Build();
+    return AwaitableUtility.CompletedTask;
+}
+```
+
+The `WithFactory` lambda short-circuits Buttr's constructor scan — perfect for ScriptableObjects since they're created by Unity, not by Buttr.
+
+`[SerializeField]` slots on the Loader expose drag-targets in the Inspector. The `.asset` files themselves live in `Catalog/` (see [Conventions](Conventions.md)).
 
 ## Configurations
 
@@ -118,11 +134,14 @@ public sealed class MeleeAttackHandler : AttackHandler {
 }
 ```
 
-Register multiple Handlers against the abstract base to resolve them polymorphically via `All<T>()`:
+Register each Handler under its **concrete** type and resolve them polymorphically via `All<T>()`. Buttr's `All<T>` walks every registration whose concrete type is assignable to `T`, so the abstract `AttackHandler` doesn't need its own registration:
 
 ```csharp
-builder.Resolvers.AddSingleton<AttackHandler>(m_MeleeHandler);
-builder.Resolvers.AddSingleton<AttackHandler>(m_RangedHandler);
+[SerializeField] private MeleeAttackHandler m_Melee;
+[SerializeField] private RangedAttackHandler m_Ranged;
+
+builder.Resolvers.AddSingleton<MeleeAttackHandler>().WithFactory(() => m_Melee);
+builder.Resolvers.AddSingleton<RangedAttackHandler>().WithFactory(() => m_Ranged);
 
 // Later:
 foreach (var handler in Application<AttackHandler>.All()) {
@@ -130,15 +149,17 @@ foreach (var handler in Application<AttackHandler>.All()) {
 }
 ```
 
+(Or drop both into a single `ScriptableInjector` and call `m_Injector.Inject(builder)` for the same result.)
+
 Or key them by ID with `DIBuilder<TKey>` for designer-assigned strategy selection:
 
 ```csharp
 var builder = new DIBuilder<AbilityId>();
-builder.AddSingleton(m_MeleeHandler, MeleeId);
-builder.AddSingleton(m_RangedHandler, RangedId);
+builder.AddSingleton<MeleeAttackHandler>(MeleeId).WithFactory(() => m_Melee);
+builder.AddSingleton<RangedAttackHandler>(RangedId).WithFactory(() => m_Ranged);
 
 var container = builder.Build();
-var chosen = container.Get(currentAbilityId);
+var chosen = container.Get<AttackHandler>(currentAbilityId);
 chosen.Execute(ctx);
 ```
 

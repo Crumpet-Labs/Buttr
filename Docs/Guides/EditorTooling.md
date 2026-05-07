@@ -33,8 +33,8 @@ In the Project window, right-click inside your `_Project/` folder → `Buttr > P
 | Menu | What it scaffolds |
 |---|---|
 | `New Feature` | Full feature package — entry point, asmdef, Components (Model, Presenter, Mediator, View, Service), Contracts, Loader |
-| `New Core Package` | Same as Feature, but created under `Core/` for engine-agnostic reusability |
-| `New UI Package` | UI Toolkit variant — `{Name}Instance` MonoBehaviour, `{Name}View` as plain C#, scoped container lifecycle |
+| `New Core` | Same as Feature, but created under `Core/` for engine-agnostic reusability |
+| `New UI` | UI Toolkit variant — `{Name}Instance` MonoBehaviour, `{Name}View` as plain C#, scoped container lifecycle |
 
 Each prompts for a name and gives you checkboxes for optional extras (Handlers, Behaviours, Identifiers, Configurations, Common, Exceptions). Classes are correctly named, sealed, and wired with constructor injection.
 
@@ -48,11 +48,13 @@ This keeps Views testable and decouples them from the GameObject lifecycle.
 
 `Add to Package` opens a type picker and drops a single correctly-templated file into the right subfolder of the package you right-clicked in. The types are grouped by their architectural layer:
 
-- **Unity** — Controller, View, Instance
+- **Unity** — Controller, View
 - **Data** — Model, Identifier, Definition, Configuration
 - **Logic** — Presenter, System, Mediator, Handler, Behaviour
 - **Infrastructure** — Service + Contract (scaffolded as a pair), Repository, Registry, Loader
 - **Structure** — Extensions
+
+(The `Instance` type is scaffolded only as part of `New UI` — it's tied to the UI Toolkit lifecycle pattern and doesn't make sense as a standalone add.)
 
 The scaffolder infers the package name from the folder you right-click in and creates the correct subfolder (`Components/`, `Contracts/`, `MonoBehaviours/`, etc.) if it doesn't exist.
 

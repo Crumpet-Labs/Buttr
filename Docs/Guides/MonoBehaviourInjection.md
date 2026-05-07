@@ -1,6 +1,6 @@
 # MonoBehaviour Injection
 
-Buttr injects MonoBehaviours via compile-time source generation — **zero runtime reflection**. A Roslyn source generator walks every MonoBehaviour marked with `[Inject]` fields and generates the resolution code statically.
+Buttr injects MonoBehaviours via compile-time source generation. A Roslyn source generator walks every MonoBehaviour marked with `[Inject]` fields and generates the resolution code statically — so the field-injection path itself runs zero reflection at runtime. Container build itself uses minimal reflection (constructor scanning to compile factory delegates, alias mapping); resolve-time hot paths are reflection-free.
 
 ## The basics
 

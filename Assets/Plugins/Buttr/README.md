@@ -2,7 +2,7 @@
 
 A lightweight dependency-injection container with an opinionated architecture for Unity 6+. Adds MonoBehaviour, ScriptableObject, and scene-walking integration on top of the engine-agnostic [Buttr.Core](https://github.com/Crumpet-Labs/Buttr.Core) library.
 
-- **Source-generated injection** — `[Inject]` fields on `partial` MonoBehaviours. Zero runtime reflection.
+- **Source-generated injection** — `[Inject]` fields on `partial` MonoBehaviours. The field-injection path runs zero reflection at runtime; container build itself uses minimal reflection (constructor scanning, alias mapping).
 - **Roslyn analyzers** — compile-time diagnostics for duplicate registrations, missing dependencies, alias mismatches, and more.
 - **Suffix-driven architecture** — Models, Presenters, Services, Handlers, Behaviours. Every class name tells you what it does.
 - **Editor scaffolding** — one-click project setup, right-click to scaffold conventions-compliant packages.
