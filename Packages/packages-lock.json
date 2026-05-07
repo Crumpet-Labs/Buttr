@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.crumpetlabs.buttr": {
+      "version": "https://github.com/Crumpet-Labs/Buttr.Core.git?path=package",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "895dfe72cf1f8521309cd1f75ab0573ae2b5fe98"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 1,

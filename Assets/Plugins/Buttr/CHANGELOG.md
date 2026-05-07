@@ -4,6 +4,44 @@ All notable changes to Buttr will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2026-05-07
+
+Tracks [Buttr.Core 1.3.4](https://github.com/Crumpet-Labs/Buttr.Core/releases/tag/v1.3.4). Bug-fix and documentation pass — no API surface changes on the Unity side.
+
+### Fixed
+
+- **Right-click `Buttr > Packages` menu items stayed disabled after `Tools > Buttr > Setup Project`.** The menu validator looked for `_Project/{Application.productName}.asmdef`, but the scaffolder writes `_Project/{SanitiseTypeName(Application.productName)}.asmdef`. Any product name with characters the sanitiser modifies (spaces, hyphens, accents) caused the validation to fail and the menus stayed grayed out indefinitely. Validator now finds any `*.asmdef` directly in `_Project/`, name-agnostic.
+- **`ProgramLoader.cs` was being written to `_Project/Core/`** instead of `_Project/` root as documented (with a misleading log message claiming `_Project/Loaders/`). Now matches docs.
+- **`ProgramLoader.asset` was being written to `_Project/Catalog/`** instead of `_Project/Loaders/`. The 2.0.0 release relocated loader assets to `Loaders/`, but the wizard never followed suit, and `Loaders/` wasn't even in `ConventionFolders` so it was never created. Both fixed.
+- **Buttr version stored after setup was hardcoded to `2.2.0`** despite the package being 2.4.x. Now read from `PackageInfo.FindForAssembly(...)` at runtime.
+- **Two `ButtrPostCompileHook` classes both `[InitializeOnLoad]`.** The inline copy in `ButtrProjectScaffolder.cs` ran `ExecutePostCompileSetup` synchronously *and* via `delayCall` on the same edit (running it twice on case 1). The standalone copy in `Editor/Scaffolding/` checked `EditorPrefs.GetBool` against a key set with `SetInt`. Consolidated into a single hook with consistent typing.
+- **`GetRootNamespace` was looking for a literal `_Project.asmdef` file** that never exists (the project asmdef is named after the product). Now finds any asmdef in `_Project/` and reads its `rootNamespace` field, falling back to the project folder name only as a last resort.
+- **Three misleading `"wire ButtrNewPackagePopup.Show() here"` log lines** removed from menu handlers — the popup was already wired; these were leftover dev noise.
+
+### Changed
+
+- **`ButtrLayout` is the single source of truth for project convention layout.** Folder names, file names, EditorPref keys, the `ConventionFolders` array, and helpers (`RootPath`, `RootSubpath`, `HasConventionStructure`, `IsProjectRoot`) all live here. Six consumer files now route through it. No more hardcoded `"_Project"` / `"Catalog"` / `"Loaders"` strings scattered across the editor codebase.
+- **`package.json` dependency on `com.crumpetlabs.buttr` bumped to `1.3.4`** — see Buttr.Core's [1.3.4 release notes](https://github.com/Crumpet-Labs/Buttr.Core/blob/main/CHANGELOG.md#134--constructor-selection-convention--docs-accuracy) for the constructor-selection behaviour change.
+
+### Documentation
+
+- **Docs/Guides/ScriptableObjects.md** — `ScriptableInjector` correctly described as a `[Serializable]` helper used as a `[SerializeField]` on a Loader, not a MonoBehaviour added to a GameObject. Multi-handler registration examples switched to concrete registrations + `All<T>` (the previous version used a fictional `AddSingleton(instance)` overload that doesn't exist on `IResolverCollection`). `DIBuilder<TKey>` registration signature corrected.
+- **Docs/Guides/MonoBehaviourInjection.md, Assets/Plugins/Buttr/README.md** — "zero runtime reflection" claim softened. The `[Inject]` field-injection path runs zero reflection at runtime; container build itself uses minimal reflection (constructor scanning to compile factory delegates, alias mapping).
+- **Docs/Guides/EditorTooling.md** — menu names corrected (`New Core` / `New UI`, not `New Core Package` / `New UI Package`); `Instance` removed from the `Add to Package > Unity` layer breakdown (it's scaffolded only by `New UI`).
+- **Assets/README.md, Assets/Docs/README.md** — legacy pre-2.2.0 content replaced with pointers to the canonical `Docs/Guides/` and package README. The old content used the deprecated `Application.Get<T>()` API and described a setup wizard that was retired in 2.2.0.
+- **CONTRIBUTING.md** — replaced template-with-TODOs scaffold with a pointer to `Buttr.Core/Docs/Contributing.md` plus a short section on where work belongs (engine-agnostic vs Unity-specific).
+- **CODE_OF_CONDUCT.md** — enforcement contact filled in.
+
+### Migration
+
+No required migrations.
+
+If you previously ran `Tools > Buttr > Setup Project` and hit either of:
+- Grayed-out `Buttr > Packages` menu items, or
+- A missing `_Project/Loaders/` folder with `ProgramLoader.asset` ending up in `_Project/Catalog/`
+
+re-running the wizard after the upgrade will create the correct structure. You may want to move any existing `_Project/Catalog/ProgramLoader.asset` to `_Project/Loaders/ProgramLoader.asset` so it matches the documented layout — no code references the old location after this release.
+
 ## [2.4.0] - 2026-04-21
 
 Switches from vendoring the Buttr.Core DLLs to depending on the new `com.crumpetlabs.buttr` UPM package. No runtime or API changes.
