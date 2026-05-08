@@ -4,6 +4,28 @@ All notable changes to Buttr will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.2] - 2026-05-08
+
+Bug-fix release. Three pre-existing scaffolding bugs surfaced during demo prep and one regression from 2.4.1's layout change. No API surface changes.
+
+### Fixed
+
+- **Package extension class generated with the project's root namespace as a prefix instead of the package name.** Right-clicking → `New Feature` named "Score" in a project named "ButtrDemo" produced `ButtrDemoPackage` with `UseButtrDemo`, `IButtrDemoService`, `ButtrDemoModel`, etc. instead of `ScorePackage` / `UseScore` / `IScoreService`. The other scaffolded files (loader, model, presenter, mediator, service+contract) were correctly named after the package, so they wouldn't link against the broken extension and the package didn't compile. `ButtrPackageScaffolder.CreatePackage` was passing the resolved project root namespace into the `name` slot of `ButtrPackageExtensionTemplate` instead of the user-supplied package name.
+- **`{Name}Registry.cs` referenced `UnityEngine.EntityId` without `using UnityEngine;`.** Right-clicking → `Add to Package > Infrastructure > Registry` produced a non-compiling `{Name}Registry.cs`. Template now imports `UnityEngine`.
+- **`AddSystemCommand` produced a non-compiling `{Name}System.cs` when invoked on a package without an existing Behaviour interface.** The system template references `I{Name}Behaviour` and `{Name}Context`. Adding a System now bundles the Behaviour scaffold (`I{Name}Behaviour.cs`, `Default{Name}Behaviour.cs`, `{Name}Context.cs`) — Systems are driven by Behaviours in the suffix-driven convention; the menu separation was the bug.
+
+### Changed
+
+- **`ProgramLoader.cs` is back at `_Project/Core/ProgramLoader.cs`.** v2.4.1 relocated it to `_Project/` root; reverted because Core code belongs in `Core/` per the suffix-driven convention. The `_Project/Core/` folder is created by `CreateSubFolders` before `GenerateProgramLoader` runs, so the path is always valid.
+
+### Migration
+
+No required migrations.
+
+If you ran `Tools > Buttr > Setup Project` on v2.4.1 and have `_Project/ProgramLoader.cs` at the root, move it to `_Project/Core/ProgramLoader.cs` — no code references the old location after this release.
+
+If you scaffolded a Feature/Core/UI package on v2.4.1 or earlier and the package extension class is named `{ProjectName}Package` instead of `{PackageName}Package`, delete the package folder and re-scaffold. Only the package-extension file is broken; the model/presenter/mediator/service/loader were generated correctly.
+
 ## [2.4.1] - 2026-05-07
 
 Tracks [Buttr.Core 1.3.4](https://github.com/Crumpet-Labs/Buttr.Core/releases/tag/v1.3.4). Bug-fix and documentation pass — no API surface changes on the Unity side.

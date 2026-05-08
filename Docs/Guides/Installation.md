@@ -38,8 +38,8 @@ Order in the manifest doesn't matter — UPM only needs both entries to be prese
 Append `#<tag>` to pin either package to a release:
 
 ```
-https://github.com/Crumpet-Labs/Buttr.Core.git?path=package#v1.3.3
-https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr#v2.4.0
+https://github.com/Crumpet-Labs/Buttr.Core.git?path=package#v1.3.4
+https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr#v2.4.2
 ```
 
 Tags follow [Semantic Versioning](https://semver.org/). Each Buttr.Unity release pins a specific Buttr.Core minimum in its `package.json` — see the Unity [CHANGELOG](https://github.com/Crumpet-Labs/Buttr.Unity/blob/main/Assets/Plugins/Buttr/CHANGELOG.md) for the pairing per release.

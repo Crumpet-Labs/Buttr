@@ -23,7 +23,7 @@ Buttr.Unity depends on Buttr.Core. UPM doesn't auto-resolve git-URL dependencies
    https://github.com/Crumpet-Labs/Buttr.Unity.git?path=Assets/Plugins/Buttr
    ```
 
-Pin versions by appending a tag (e.g. `#v1.3.3` for Core, `#v2.4.0` for Unity). Requires Unity 6.0+.
+Pin versions by appending a tag (e.g. `#v1.3.4` for Core, `#v2.4.2` for Unity). Requires Unity 6.0+.
 
 ## Getting started
 
