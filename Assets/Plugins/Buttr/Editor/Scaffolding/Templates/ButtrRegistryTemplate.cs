@@ -11,6 +11,7 @@ namespace Buttr.Editor.Scaffolding {
         public string Generate() {
             return $@"using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace {m_Ns} {{
     public sealed class {m_Name}Registry {{

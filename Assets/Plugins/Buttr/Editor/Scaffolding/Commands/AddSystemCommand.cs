@@ -10,10 +10,9 @@ namespace Buttr.Editor.Scaffolding {
 
         public void Execute() {
             var (ns, name) = m_PackageFolder.InferPackage();
+            new AddBehaviourCommand(m_PackageFolder, false).Execute();
             var components = m_PackageFolder.EnsureSubFolder("Components");
-            var common = m_PackageFolder.EnsureSubFolder("Common");
-            components.WriteFileIfNew($"{name}System.cs", new ButtrSystemTemplate(ns, name).Generate());
-            common.WriteFileIfNew($"{name}Context.cs", new ButtrContextTemplate(ns, name).Generate(), m_RefreshAssetDatabase);
+            components.WriteFileIfNew($"{name}System.cs", new ButtrSystemTemplate(ns, name).Generate(), m_RefreshAssetDatabase);
         }
     }
 }

@@ -22,14 +22,13 @@ namespace Buttr.Editor.Scaffolding {
             }
 
             var ns = parentFolder.ResolveNamespace(packageName);
-            var projectName = ButtrPackageScaffolderUtility.GetRootNamespace();
 
             Debug.Log($"[Buttr] Creating {type} package: {packageName}...");
 
             Directory.CreateDirectory(root);
 
             root.WriteFile($"{packageName}Package.cs",
-                new ButtrPackageExtensionTemplate(ns, projectName, type).Generate());
+                new ButtrPackageExtensionTemplate(ns, packageName, type).Generate());
 
             root.WriteFile($"{ns}.asmdef",
                 new ButtrAsmdefTemplate(ns).Generate());

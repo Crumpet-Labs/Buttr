@@ -161,7 +161,7 @@ namespace {sanitisedName} {{
         }
 
         private void GenerateProgramLoader() {
-            var path = Path.Combine(ButtrLayout.RootPath(), ButtrLayout.ProgramLoaderScriptName);
+            var path = Path.Combine(ButtrLayout.RootPath(), ButtrLayout.CoreFolder, ButtrLayout.ProgramLoaderScriptName);
 
             if (File.Exists(path)) {
                 Debug.Log("[Buttr] ProgramLoader.cs already exists — skipping");
