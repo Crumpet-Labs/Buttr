@@ -4,6 +4,14 @@ All notable changes to Buttr will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.2] - 2026-05-18
+
+Patch release. resolved potential issue with InjectionProcessorUnityExtensions
+
+### Fixed 
+
+- **'InjectionProcessorUnityExtensions.cs'** added try get to MonoBehaviour check, to prevent null passing
+
 ## [2.5.1] - 2026-05-08
 
 Patch release. v2.5.0 shipped `SceneLoader.cs` without its `.meta` file, so Unity could not import the script. Upgrade if you're on 2.5.0.
