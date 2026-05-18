@@ -12,7 +12,9 @@ namespace Buttr.Unity.Injection {
     public static class InjectionProcessorUnityExtensions {
         public static void InjectScene(Scene scene) {
             foreach (var root in scene.GetRootGameObjects()) {
-                InjectSelfAndChildren(root.GetComponent<MonoBehaviour>());
+				if(root.TryGetComponent<MonoBehaviour>(out var mono)) {
+                    InjectSelfAndChildren(mono);
+                }
             }
         }
 
